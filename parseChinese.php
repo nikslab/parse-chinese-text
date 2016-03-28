@@ -3,6 +3,7 @@
  * @name    parseChinese.php
  * @author  Nik Stankovic 2014
  * @see     http://github.com/nikslab
+ *
  */
 
 function parseChinese($text, $dictionary) {
@@ -12,40 +13,42 @@ function parseChinese($text, $dictionary) {
  * 
  * @param   $text           Text to parse
  * @param   $dictionary     Path and filename where to find the dictionary
+ * @return                  An array of words
  *
  */
 
-    $text_converted = iconv(mb_detect_encoding($text, mb_detect_order(), true), "UTF-8", $text);
+    // Have to make sure incoming text is UTF-8
+    $text_converted = iconv(mb_detect_encoding($text, mb_detect_order(), true), "UTF-8", $text); 
 
-    $text_length = mb_strlen($text_converted, 'UTF-8');
+    $text_length = mb_strlen($text_converted, 'UTF-8'); // note mb_strlen
     
     // Load dictionary into associative array $dict for easy search
     $words = file($dictionary);
     foreach ($words as $word) {
         $word = rtrim($word);
+        // Same as with text, ensure we're UTF-8
         $word_converted = iconv(mb_detect_encoding($word, mb_detect_order(), true), "UTF-8", $word);
         $dict[$word_converted] = true;
     }
     
     // Prep
-    $give_up = 5;
-    $start_word = 0;
+    $max_len = 5;
     $pointer = 0;
     $parsed = array();
     
     // Parsing main loop
     while ($pointer <= $text_length) {
         
-        $try = $give_up;
+        $try = $max_len;
         $not_found = true;
         
-        while ( ($not_found) && ($try > 0) ) {
+        while ( ($not_found) && ($try > 1) ) {
             $test = mb_substr($text_converted, $pointer, $try, 'UTF-8');
             if (isset($dict[$test])) { // found it! 
                 $not_found = false;
                 $parsed[] = $test; // We'll just take it without much ado
             }
-            $try--;
+            $try--; // try with a shorted word
         }
         
         if ($not_found) {

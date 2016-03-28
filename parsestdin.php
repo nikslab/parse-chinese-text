@@ -1,9 +1,20 @@
 #!/usr/bin/php
 <?php
+/**
+ * @name    parsestdin.php
+ * @author  Nik Stankovic 2014
+ * @see     http://github.com/nikslab
+ *
+ * Read in Chinese text from STDIN and, parse it with parseChinese and
+ * send it back out the other end on STDOUT.
+ *
+ * Words separated by "|"
+ *
+ */
 
 require_once("parseChinese.php");
 
-// Load text from STDIN
+// Preload the entire text from STDIN
 $text = "";
 while($f = fgets(STDIN)){
     $text .= $f;    
