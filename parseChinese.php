@@ -17,7 +17,7 @@ function parseChinese($text, $dictionary) {
 
     $text_converted = iconv(mb_detect_encoding($text, mb_detect_order(), true), "UTF-8", $text);
 
-    $text_length = strlen($text_converted);
+    $text_length = mb_strlen($text_converted, 'UTF-8');
     
     // Load dictionary into associative array $dict for easy search
     $words = file($dictionary);
