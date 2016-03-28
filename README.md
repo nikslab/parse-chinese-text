@@ -1,10 +1,19 @@
 # parse-chinese-text
-A PHP function to parse Mandarin Chinese text
+
+Chinese (here always referring to Mandarin Chinese written in Simplified Characters) does not have spaces between words so parsing it is not trivial.  Words can be one character long or up to four or five.  One feature though is that shorter words are more common.  
+
+One method often used is a dictionary lookup, which is what I use here.  Essentially you block of a group of characters (say 5) and see if you can find that word it in the dictionary.  If not, you cut off one character, and try again, up until you are left with one character, in which case it either isn't a Chinese character (could be a letter or a question mark), or it is, but you have your boundary.
+
+This isn't a perfect solution because it does not take grammar and content into consideration, but it gets the job done for many purposes.  For me it was in the context of a project in which we needed to classify Chinese text into categories.  This was mostly done by looking at word frequencies.
+
+Load entire Chinese dictionary into memory?  Sure the dictionary I use below is 2 MB and has 44,783 Chinese words including translations and both simplified and complex characters.  When you take out only simplified characters which is what you need, the entire dictionary is 370 KB!  Yes, you can safely load it into memory.
 
 Dictionary downloaded from here: http://cgibin.erols.com/mandarintools/cedict.html
 
 Converted to only Mandarin words, one word per line with:
 <pre><b>cat cedict_ts.u8 | cut -d" " -f2 > mandarin_words.txt</b></pre>
+
+Note the challanges of working with UTF-8 strings, for example in functions like <b>strlen</b> or <b>substr</b>.  Using <b>mb_</b> versions.
 
 <pre>
 <i>nik@nik-laptop:~/Dropbox/Lab/Chinese$</i> <b>cat sample1.txt | ./parsestdin.php</b>
