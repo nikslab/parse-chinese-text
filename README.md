@@ -1,7 +1,10 @@
 # parse-chinese-text
 A PHP function to parse Mandarin Chinese text
 
-http://cgibin.erols.com/mandarintools/cedict.html
+Dictionary downloaded from here: http://cgibin.erols.com/mandarintools/cedict.html
+
+Converted to only Mandarin words, one word per line with:
+<pre><b>cat cedict_ts.u8 | cut -d" " -f2 > mandarin_words.txt</b></pre>
 
 <pre>
 <i>nik@nik-laptop:~/Dropbox/Lab/Chinese$</i> <b>cat sample1.txt | ./parsestdin.php</b>
