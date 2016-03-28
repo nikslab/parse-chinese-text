@@ -2,7 +2,7 @@
 
 Chinese (here always referring to Mandarin Chinese written in Simplified Characters) does not have spaces between words so parsing it is not trivial.  Words can be one character long or up to four or five.  One feature though is that shorter words are more common.  
 
-One method often used is a dictionary lookup, which is what I use here.  Essentially you block off a group of characters (say 5) and see if you can find that word it in the dictionary.  If not, you cut off one character, and try again, up until you are left with one character, in which case it either isn't a Chinese character (could be a letter or a question mark), or it is, but you have your boundary.  Move to the next five characters and repeat.
+One method often used is a dictionary lookup, which is what I use here.  Essentially you block off a group of characters (say 5) and see if you can find that word it in the dictionary.  If not, you cut off one character, and try again, up until you are left with one character, in which case it either isn't a Chinese character (could be a Latin letter or a question mark), or it is, but you have your boundary.  Move to the next five characters and repeat.
 
 This isn't a perfect solution, and it will parse wrong at times, because it does not take grammar and context into consideration.  But it gets the job done for many purposes.  For me it was in the in a project where we needed to classify Chinese text into categories.  This was mostly done by looking at word frequencies.  An occasional mis-parsing is unlikely to influence topical categorization: if the text is about airplanes, it's likely airplanes will be mentioned more than once.
 
