@@ -3,7 +3,7 @@
 /**
  * @name    parsestdin.php
  * @author  Nik Stankovic 2014
- * @see     http://github.com/nikslab
+ * @see     http://github.com/nikslab/parse-chinese-text
  *
  * Read in Chinese text from STDIN and, parse it with parseChinese and
  * send it back out the other end on STDOUT.

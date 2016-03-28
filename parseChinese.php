@@ -2,7 +2,7 @@
 /**
  * @name    parseChinese.php
  * @author  Nik Stankovic 2014
- * @see     http://github.com/nikslab
+ * @see     http://github.com/nikslab/parse-chinese-text
  *
  */
 
