@@ -2,11 +2,11 @@
 
 Chinese (here always referring to Mandarin Chinese written in Simplified Characters) does not have spaces between words so parsing it is not trivial.  Words can be one character long or up to four or five.  One feature though is that shorter words are more common.  
 
-One method often used is a dictionary lookup, which is what I use here.  Essentially you block of a group of characters (say 5) and see if you can find that word it in the dictionary.  If not, you cut off one character, and try again, up until you are left with one character, in which case it either isn't a Chinese character (could be a letter or a question mark), or it is, but you have your boundary.
+One method often used is a dictionary lookup, which is what I use here.  Essentially you block off a group of characters (say 5) and see if you can find that word it in the dictionary.  If not, you cut off one character, and try again, up until you are left with one character, in which case it either isn't a Chinese character (could be a letter or a question mark), or it is, but you have your boundary.
 
-This isn't a perfect solution because it does not take grammar and content into consideration, but it gets the job done for many purposes.  For me it was in the context of a project in which we needed to classify Chinese text into categories.  This was mostly done by looking at word frequencies.
+This isn't a perfect solution, and it will parse wrong at times, because it does not take grammar and context into consideration.  But it gets the job done for many purposes.  For me it was in the in a project where we needed to classify Chinese text into categories.  This was mostly done by looking at word frequencies.  An occasional mis-parsing is unlikely to influence mis-categorization.
 
-Load entire Chinese dictionary into memory?  Sure the dictionary I use below is 2 MB and has 44,783 Chinese words including translations and both simplified and complex characters.  When you take out only simplified characters which is what you need, the entire dictionary is 370 KB!  Yes, you can safely load it into memory.
+Load entire Chinese dictionary into memory?  Sure.  The dictionary I use below is 2 MB and has 44,783 Chinese words including translations and both simplified and complex characters.  When you take out only Simplified Characters, which is only what you need, the entire dictionary is 370 KB!  Yes, you can safely load it into memory.
 
 Dictionary downloaded from here: http://cgibin.erols.com/mandarintools/cedict.html
 
