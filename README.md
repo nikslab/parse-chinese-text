@@ -18,7 +18,7 @@ Note the challanges of working with UTF-8 strings, for example in functions like
 Example of a script `parsestdin.php` using the function to read text from STDIN and output parsed text to STDOUT.
 
 <pre>
-<i>nik@nik-laptop:~/Lab/Chinese$</i> <b>cat sample1.txt | ./parsestdin.php<b>
+<i>nik@nik-laptop:~/Lab/Chinese$</i> <b>cat sample1.txt | ./parsestdin.php</b>
 《 | 南方周末 | 》 | 每周 | 四 | 出版 | ， | 全国 | 发行 | 。 | 创办 | 于 | 1 | 9 | 8 | 4 | 年 | ， | 
 以 | “ | 在 | 这里 |， | 读 | 懂 | 中国 | ” | 为 | 办报 | 宗旨 | ， | 以 | “ | 正义 | 、 | 良 | 知 | 、
 | 爱 | 心 | 、 | 理性 | ” | 为 | 基本 | 理念 | 。 | 南方周末 | 是 | 中国 | 深 | 具 | 公 | 信 | 力 | 的 |
