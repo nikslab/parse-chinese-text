@@ -1,24 +1,24 @@
 # parse-chinese-text
 
-Chinese (here always referring to Mandarin Chinese written in Simplified Characters) does not have spaces between words so parsing it is not trivial.  Words can be one character long or up to four or five, though most words are two characters long.
+Chinese (here always referring to Mandarin Chinese written in Simplified Characters) does not have spaces between words so parsing it is not trivial.  Words can be one character or up to four or five, though most words have two characters.
 
-One method often used to parse Chinese text is dictionary lookup, which is what I use here.  Essentially you block off a group of characters (say 5) and see if you can find that word it in the dictionary.  If not, you cut off one character, and try again, up until you are left with one character, in which case it either isn't a Chinese character (could be a Latin letter or a question mark), or it is, but you have your boundary.  Move to the next five characters and repeat.  You have to start from a longer word try and then cut, else you would never find longer words as there would be a match on a character sooner.
+One method often used to parse Chinese text is dictionary lookup, which is what I use here.  Essentially you block off a group of characters (say 5) and see if you can find that word in the dictionary.  If not, you take off one character, now scanning for four, and try again, up until you are left with one character, in which case you will either find it or it isn't a Chinese character (could be a Latin letter or punctuation).  Move to the next five characters and repeat.  You have to start from a longer word and then cut, else you would never find longer words as there would be a match on a character sooner.
 
-This isn't a perfect solution, and it will parse wrong at times because it does not take grammar and context into consideration.  But it gets the job done for many purposes and given 50 lines of code and it's simplicity/speed it may just be all you need.  For me it was in a project where we wanted to classify social network posts of Chinese users, and based on what they might be interested in propose a gift for them.  This was mostly done by looking at word frequencies of user posts.  An occasional mis-parsing is unlikely to influence categorization: if a user talks about car racing a lot, it is likely he would mention it more than that once when it was mis-parsed.
+This isn't a perfect solution, and it will parse wrong at times because it does not take grammar and context into consideration.  But it gets the job done for many purposes and given 50 lines of code and it's simplicity/speed it may just be all you need.  For me it was on a project where we wanted to classify social network posts of Chinese users, and based on what they might be interested in propose a gift.  This was mostly done by looking at word frequencies of user posts.  An occasional mis-parsing is unlikely to influence categorization: if a user talks about car racing a lot, it is likely he would mention it more than that once when it was mis-parsed.
 
-Load entire Chinese dictionary into memory?  Sure.  The dictionary I use below is 2 MB and has 44,783 Chinese words including translations and both simplified and complex characters.  When you take out only Simplified Characters, which is what you need, the entire dictionary is 370 KB!  Yes, you can safely load it into memory.
+Load entire Chinese dictionary into memory?  Sure.  The dictionary I use below is 2 MB and has 44,783 Chinese words including translations and both simplified and complex characters.  When you pull out only Simplified Characters, which is what you need for parsing, the entire dictionary is 370 KB!  Yes, you can safely load it into memory.
 
 Dictionary was downloaded from here: http://cgibin.erols.com/mandarintools/cedict.html
 
-Converted to only Mandarin words, one word per line with:
-<pre><b>cat cedict_ts.u8 | cut -d" " -f2 > mandarin_words.txt</b></pre>
+Converted to only Mandarin words, one word per line with 
+`cat cedict_ts.u8 | cut -d" " -f2 > mandarin_words.txt`
 
-Note the challanges of working with UTF-8 strings, for example in functions like <b>strlen</b> or <b>substr</b>.  Using <b>mb_</b> versions.
+Note the challanges of working with UTF-8 strings, for example in functions like `strlen()` or `substr()`.  Using <b>mb_</b> versions.
 
-Example of a script parsestdin.php using the function to read text from STDIN and output parsed text to STDOUT.
+Example of a script `parsestdin.php` using the function to read text from STDIN and output parsed text to STDOUT.
 
 <pre>
-<i>nik@nik-laptop:~/Dropbox/Lab/Chinese$</i> <b>cat sample1.txt | ./parsestdin.php</b>
+<i>nik@nik-laptop:~/Lab/Chinese$</i> <b>cat sample1.txt | ./parsestdin.php<b>
 《 | 南方周末 | 》 | 每周 | 四 | 出版 | ， | 全国 | 发行 | 。 | 创办 | 于 | 1 | 9 | 8 | 4 | 年 | ， | 
 以 | “ | 在 | 这里 |， | 读 | 懂 | 中国 | ” | 为 | 办报 | 宗旨 | ， | 以 | “ | 正义 | 、 | 良 | 知 | 、
 | 爱 | 心 | 、 | 理性 | ” | 为 | 基本 | 理念 | 。 | 南方周末 | 是 | 中国 | 深 | 具 | 公 | 信 | 力 | 的 |
